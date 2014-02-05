@@ -1,0 +1,3 @@
+# handlers are callbacks from playbooks, eg a service that should be
+# restarted after its configuration files are updated
+---

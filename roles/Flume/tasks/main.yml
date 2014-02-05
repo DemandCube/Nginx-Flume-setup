@@ -1,0 +1,39 @@
+- name: install flume
+  yum: name='flume' state=installed
+  sudo: yes
+
+- name: install flume-agent
+  yum: name='flume-agent' state=installed
+  sudo: yes
+
+- name: install Persistent Spool Channel
+  yum: name='flume-ng-persistent-spool-channel' state=installed
+  register: flume_ng_perisistent_spool_channel_status
+  sudo: yes
+
+- name: install flume kafka sink
+  yum: name='flume-ng-kafka-sink' state=installed
+  register: flume_ng_kafka_sink_status
+  sudo: yes
+
+- name: Setup /var/log/nginx/flume-drop
+  file: path=/var/log/nginx/flume-drop state=directory group=flume owner=flume
+  sudo: yes
+
+- name: install flume conf
+  template: src={{ item }}.j2 dest=/etc/flume/conf/{{ item }}
+  sudo: yes
+  register: flume_conf_status
+  with_items:
+    - flume.conf
+
+- name: run flume-agent
+  service: name=flume-agent state=started
+  sudo: yes
+
+- name: re-run flume-agent when necessary
+  service: name=flume-agent state=restarted
+  sudo: yes
+  when:
+    flume_ng_perisistent_spool_channel_status|changed or flume_ng_kafka_sink_status|changed or flume_conf_status|changed
+

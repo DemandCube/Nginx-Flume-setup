@@ -1,0 +1,1 @@
+persistent_spool_channel_checkpoint_dir: /var/cache/flume/channel1/persistent-spool/channel/checkpoint

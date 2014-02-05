@@ -1,0 +1,77 @@
+---
+# file: site.yml
+#
+# This file essentially maps HOST GROUPS (as defined in the inventory file) to
+# ROLES. We can define a variable "ha_enabled" that simplifies the setup to a
+# non-HA (single-node, for example) cluster
+
+- hosts: Zookeepers
+  sudo: yes
+  roles:
+  - { role: Zookeeper, when: ha_enabled }
+
+- hosts: Kafkas
+  sudo: yes
+  roles:
+  - { role: Kafka }
+
+- hosts: Camus
+  sudo: yes
+  roles:
+  - { role: Camus }
+
+- hosts: QJournalServers
+  sudo: yes
+  roles:
+  - { role: QJournalServer, when: ha_enabled }
+
+- hosts: NameNodes
+  sudo: yes
+  roles:
+  - { role: NameNode }
+
+- hosts: NameNodeFailover
+  sudo: yes
+  roles:
+  - { role: NameNodeFailover, when: ha_enabled }
+
+- hosts: ResourceManagers
+  sudo: yes
+  roles:
+  - { role: ResourceManager }
+
+- hosts: DataNodes
+  sudo: yes
+  roles:
+  - { role: DataNode }
+
+- hosts: NodeManagers
+  sudo: yes
+  roles:
+  - { role: NodeManager }
+
+- hosts: Kafkas
+  sudo: yes
+  roles:
+  - { role: Kafka }
+
+- hosts: Couchbases
+  sudo: yes
+  roles:
+  - { role: CouchBase }
+
+- hosts: GangliaMasters
+  sudo: yes
+  roles:
+  - { role: GangliaMaster }
+
+- hosts: GangliaSlaves
+  sudo: yes
+  roles:
+  - { role: GangliaSlave }
+
+- hosts: Nginx
+  sudo: yes
+  roles:
+  - { role: Nginx }
+  - { role: Flume }

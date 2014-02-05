@@ -1,0 +1,24 @@
+A J2-template file. Things inside {{...}} are interpolated by the template engine.
+Often this looks like code or varaibles. Some useful constructs to use in templates:
+
+{{VAR}} # will just be the value of VAR at the moment of the run
+
+# if port=1234, output will look like
+# hostname1:1234
+# hostname2:1234
+# hostname3:1234
+{% for hostName in groups['GroupNameFromInventoryFile'] %}
+{{hostName}}:{{port}}
+{% endfor %}
+
+# using host variables per hostname in the inventory file, we
+# can interpolate those here - suppose we defined a host var
+# per host called jiggles with an int value of 0,1,2 for 3 hosts,
+# output will look like:
+# i-really-like = 0 hostname1:1234
+# i-really-like = 1 hostname2:1234
+# i-really-like = 2 hostname3:1234
+{% for hostName in groups['GroupNameFromInventoryFile'] %}
+i-really-like = {{hostvars[host].VAR}} :: {{host}}:{{port}}
+{% endfor %}
+

@@ -1,0 +1,41 @@
+# ----------------------------------------------------------
+# KIXEYE - production inventory file
+# ----------------------------------------------------------
+
+# This section runs playbooks that apply to all masters (probably nothing)
+[masters:children]
+NameNodes
+HMasters
+JobTrackers
+Zookeepers
+
+# This section runs playbooks that apply to all slaves (probably nothing)
+[slaves:children]
+DataNodes
+TaskTrackers
+
+# The HDFS cluster lives on 10.0.0.*
+[NameNodes]
+10.0.0.1
+
+[JobTrackers]
+10.0.0.2
+
+# The HBase cluster lives on 10.1.1.*
+[HMasters]
+10.1.1.1
+
+[Zookeepers]
+10.1.1.3
+10.1.1.4
+10.1.1.5
+10.1.1.6
+10.1.1.7
+
+# The Ganglia monitoring setup
+[GangliaMasters]
+10.1.1.1
+
+[GangliaSlaves]
+10.1.1.2
+

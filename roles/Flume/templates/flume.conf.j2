@@ -1,0 +1,40 @@
+# Configure Agent
+agent.sources = source1
+agent.sinks = kafka1
+agent.channels = channel1
+
+# Configure Source
+agent.sources.source1.type=spooldir
+agent.sources.source1.spoolDir={{ flume_drop_dir }}
+#agent.sources.source1.ignorePattern=([^\\s]+(\\.(?i)(dontreadme))$)
+agent.sources.source1.batchSize=100
+agent.sources.source1.fileHeader=true
+agent.sources.source1.deserializer.maxLineLength=124096
+agent.sources.source1.interceptors=i1 i2
+
+# Configure Source Interceptors
+agent.sources.source1.interceptors.i1.type= host
+agent.sources.source1.interceptors.i1.preserveExisting = true
+agent.sources.source1.interceptors.i1.hostHeader = hostname
+agent.sources.source1.interceptors.i1.useIP = false;
+
+agent.sources.source1.interceptors.i2.type= timestamp
+agent.sources.source1.interceptors.i2.preserveExisting = true
+agent.sources.source1.channels = channel1
+
+agent.channels.channel1.type = org.apache.flume.channel.PersistentSpoolChannel
+agent.channels.channel1.capacity = 40000
+agent.channels.channel1.transactionCapacity = 40000
+agent.channels.channel1.checkpointDir = {{ persistent_spool_channel_checkpoint_dir }}
+#agent.channels.channel1.checkpointDir = /var/cache/flume/channel1/persistent-spool-channel/checkpoint
+
+agent.sinks.kafka1.type = org.apache.flume.sink.kafka.KafkaSink
+agent.sinks.kafka1.channel = channel1
+agent.sinks.kafka1.topic = ae-flume-kafka
+agent.sinks.kafka1.metadata.broker.list=172.31.32.102:9092,172.31.32.102:9093,172.31.32.102:9094
+agent.sinks.kafka1.serializer.class = kafka.serializer.StringEncoder
+#agent.sinks.kafka1.batch.num.messages = 300
+#agent.sinks.kafka1.producer.type = async
+agent.sinks.kafka1.producer.type = sync
+agent.sinks.kafka1.syncbatchsize = 200
+#agent.sinks.kafka1.request.required.acks = 1

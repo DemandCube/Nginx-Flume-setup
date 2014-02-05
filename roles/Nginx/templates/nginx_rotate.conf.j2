@@ -1,0 +1,12 @@
+/var/log/nginx/access.log {
+        olddir /var/log/nginx
+        rotate 3
+        notifempty
+        missingok
+        postrotate
+          [ ! -f /var/run/nginx.pid ] || kill -USR1 `cat /var/run/nginx.pid`
+          timestamp=$(date +%s)
+          sleep 1
+          /bin/mv /var/log/nginx/access.log.1 {{ flume_drop_dir }}/$timestamp.log
+        endscript
+}

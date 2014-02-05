@@ -1,0 +1,2 @@
+You put files into this directory that will be static on the role.
+Example: /etc/issue or a simple .bashrc

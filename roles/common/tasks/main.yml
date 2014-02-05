@@ -1,0 +1,48 @@
+---
+- name: Common things across all nodes
+  yum: name={{item}} state=installed
+  with_items:
+    - ntp
+    - ntpdate.x86_64
+
+- name: Ensure ntpd is on via chkconfig
+  shell: chkconfig ntpd on
+
+- name: Remove OpenJdk
+  yum: name={{item}} state=absent
+  with_items:
+    - java-1.7.0-openjdk
+    - java-1.7.0-openjdk-devel
+    - java-1.7.0-openjdk-javadoc
+    - java-1.7.0-openjdk-src
+    - java-1.6.0-openjdk
+    - java-1.6.0-openjdk-devel
+    - java-1.6.0-openjdk-javadoc
+    - java-1.6.0-openjdk-src
+
+- name: Install HDP2 yum Repo
+  sudo: yes
+  copy: src=hdp.repo dest=/etc/yum.repos.d/hdp.repo
+
+- name: Install Kixeye yum Repo
+  sudo: yes
+  copy: src=kixeye-ae.repo dest=/etc/yum.repos.d/kixeye.ae.repo
+
+- name: Install Oracle Java
+  yum: name='jdk.x86_64' state=installed
+  sudo: yes
+
+- shell: "grep JAVA_HOME /etc/environment"
+  register: JAVA_HOME_result
+  ignore_errors: true
+
+- name: add JAVA_HOME into /etc/environment
+  shell: "echo JAVA_HOME={{java_home}} >> /etc/environment"
+  when: not JAVA_HOME_result.stdout
+  sudo: yes
+
+- name: Java symlink
+  file: state=link src={{java_home}}/bin/{{item}} dest=/usr/bin/{{item}}
+  with_items:
+    - java
+    - javac

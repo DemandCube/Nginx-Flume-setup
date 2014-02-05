@@ -1,0 +1,57 @@
+- name: Install Nginx
+  yum: name='/home/vagrant/ansible/roles/Nginx/files/nginx-ae-1.5.7-1.el6.ngx.x86_64.rpm' state=installed
+  sudo: yes
+
+- name: Copy the Nginx config file
+  copy: src={{ item }} dest={{ nginx_conf }}/{{ item }}
+  sudo: yes
+  register: nginx_config_file_status
+  with_items:
+    - nginx.conf
+
+- name: Rename files in conf.d
+  shell: mv {{ nginx_conf }}/conf.d/{{ item }} {{ nginx_conf }}/conf.d/{{ item }}.bk creates={{ nginx_conf }}/conf.d/{{ item }}.bk
+  with_items:
+    - default.conf
+    - example_ssl.conf
+
+- name: Copy the Nginx echo config file
+  copy: src=echo.conf dest={{ nginx_conf }}/conf.d/echo.conf
+  register: nginx_echo_config_file_status
+  sudo: yes
+
+- name: Remove the default nginx logrotate
+  shell: rm /etc/logrotate.d/nginx removes=/etc/logrotate.d/nginx
+  sudo: yes
+
+- name: Install logrotate
+  template: src={{ item }}.j2 dest=/etc/logrotate.d/{{ item }}
+  sudo: yes
+  with_items:
+    - nginx_rotate.conf
+
+- name: Set up /etc/cron.fiveminutes
+  file: path=/etc/cron.fiveminutes state=directory mode=755 group=root owner=root
+  sudo: yes
+
+- name: Set up /etc/cron.fiveminutes/nginx_rotate
+  copy: src={{ item }} dest=/etc/cron.fiveminutes/{{ item }} mode=755
+  sudo: yes
+  with_items:
+    - nginx_rotate
+
+- name: Setup /etc/cron.d/cron.fiveminutes
+  copy: src={{ item }} dest=/etc/cron.d/{{ item }} mode=644 group=root owner=root
+  sudo: yes
+  with_items:
+    - cron.fiveminutes
+
+- name: run nginx
+  service: name=nginx state=started
+  sudo: yes
+
+- name: re-run nginx service when necessary
+  service: name=nginx state=restarted
+  sudo: yes
+  when:
+    nginx_config_file_status|changed or nginx_echo_config_file_status|changed

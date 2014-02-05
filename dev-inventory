@@ -1,0 +1,34 @@
+# ----------------------------------------------------------
+# KIXEYE - dev inventory file
+# ----------------------------------------------------------
+
+[NameNodes]
+ec2-54-213-37-84.us-west-2.compute.amazonaws.com
+ 
+[ResourceManagers]
+ec2-54-213-37-84.us-west-2.compute.amazonaws.com
+
+[NodeManagers]
+ 
+[DataNodes]
+
+## [HMasters]
+## 10.1.1.1
+
+[Zookeepers]
+
+[QJournalServers]
+
+# The Ganglia monitoring setup
+[GangliaMasters]
+
+[GangliaSlaves]
+
+[Camus]
+ec2-54-213-37-84.us-west-2.compute.amazonaws.com
+ec2-54-201-239-178.us-west-2.compute.amazonaws.com
+
+[Kafkas]
+ec2-54-213-37-84.us-west-2.compute.amazonaws.com
+ec2-54-201-239-178.us-west-2.compute.amazonaws.com
+

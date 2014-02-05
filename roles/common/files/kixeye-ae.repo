@@ -1,0 +1,5 @@
+[KIXEYE-AE]
+name=Kixeye AE
+enabled=1
+baseurl=http://yum.kixeye.com/ae
+gpgcheck=0

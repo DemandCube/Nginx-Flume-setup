@@ -1,0 +1,35 @@
+# ----------------------------------------------------------------------
+# KIXEYE - local workstation inventory file - for fast dev iteration
+# ----------------------------------------------------------------------
+#[NameNodes]
+#127.0.0.1
+
+#[ResourceManagers]
+#127.0.0.1
+
+#[NodeManagers]
+#127.0.0.1
+ 
+#[DataNodes]
+#127.0.0.1
+
+### [HMasters]
+### 10.1.1.1
+
+#[Zookeepers]
+#127.0.0.1 zoo_id=1
+
+#[QJournalServers]
+#127.0.0.1
+
+## The Ganglia monitoring setup
+#[GangliaMasters]
+#127.0.0.1
+
+#[GangliaSlaves]
+#127.0.0.1
+
+[Nginx]
+127.0.0.1
+
+

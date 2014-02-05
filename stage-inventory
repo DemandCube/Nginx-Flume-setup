@@ -1,0 +1,84 @@
+# ----------------------------------------------------------
+# KIXEYE - dev inventory file
+# ----------------------------------------------------------
+
+# first will be active, second standby (until a failover happens)
+[NameNodes]
+ae-stage-hdp2-01.vm.stage.i.kixeye.com
+ae-stage-hdp2-02.vm.stage.i.kixeye.com
+ 
+[ResourceManagers]
+ae-stage-hdp2-24.vm.stage.i.kixeye.com
+
+[NodeManagers]
+ae-stage-hdp2-10.vm.stage.i.kixeye.com
+ae-stage-hdp2-11.vm.stage.i.kixeye.com
+ae-stage-hdp2-12.vm.stage.i.kixeye.com
+ae-stage-hdp2-13.vm.stage.i.kixeye.com
+ae-stage-hdp2-14.vm.stage.i.kixeye.com
+ae-stage-hdp2-15.vm.stage.i.kixeye.com
+ 
+[DataNodes]
+ae-stage-hdp2-10.vm.stage.i.kixeye.com
+ae-stage-hdp2-11.vm.stage.i.kixeye.com
+ae-stage-hdp2-12.vm.stage.i.kixeye.com
+ae-stage-hdp2-13.vm.stage.i.kixeye.com
+ae-stage-hdp2-14.vm.stage.i.kixeye.com
+ae-stage-hdp2-15.vm.stage.i.kixeye.com
+
+## [HMasters]
+## 10.1.1.1
+
+[Zookeepers]
+ae-stage-hdp2-17.vm.stage.i.kixeye.com   zoo_id=1
+ae-stage-hdp2-18.vm.stage.i.kixeye.com   zoo_id=2
+ae-stage-hdp2-19.vm.stage.i.kixeye.com   zoo_id=3
+
+[QJournalServers]
+ae-stage-hdp2-17.vm.stage.i.kixeye.com
+ae-stage-hdp2-18.vm.stage.i.kixeye.com
+ae-stage-hdp2-19.vm.stage.i.kixeye.com
+
+[Kafkas]
+ae-stage-hdp2-03.vm.stage.i.kixeye.com
+ae-stage-hdp2-04.vm.stage.i.kixeye.com
+ae-stage-hdp2-05.vm.stage.i.kixeye.com
+
+[CouchBases]
+ae-stage-hdp2-06.vm.stage.i.kixeye.com
+ae-stage-hdp2-07.vm.stage.i.kixeye.com
+ae-stage-hdp2-08.vm.stage.i.kixeye.com
+
+[MySQLs]
+ae-stage-hdp2-16.vm.stage.i.kixeye.com
+
+# The Ganglia monitoring setup
+[GangliaMasters]
+ae-stage-hdp2-09.vm.stage.i.kixeye.com
+
+[GangliaSlaves]
+ae-stage-hdp2-01.vm.stage.i.kixeye.com
+ae-stage-hdp2-02.vm.stage.i.kixeye.com
+ae-stage-hdp2-03.vm.stage.i.kixeye.com
+ae-stage-hdp2-04.vm.stage.i.kixeye.com
+ae-stage-hdp2-05.vm.stage.i.kixeye.com
+ae-stage-hdp2-06.vm.stage.i.kixeye.com
+ae-stage-hdp2-07.vm.stage.i.kixeye.com
+ae-stage-hdp2-08.vm.stage.i.kixeye.com
+ae-stage-hdp2-09.vm.stage.i.kixeye.com
+ae-stage-hdp2-10.vm.stage.i.kixeye.com
+ae-stage-hdp2-11.vm.stage.i.kixeye.com
+ae-stage-hdp2-12.vm.stage.i.kixeye.com
+ae-stage-hdp2-13.vm.stage.i.kixeye.com
+ae-stage-hdp2-14.vm.stage.i.kixeye.com
+ae-stage-hdp2-15.vm.stage.i.kixeye.com
+ae-stage-hdp2-16.vm.stage.i.kixeye.com
+ae-stage-hdp2-17.vm.stage.i.kixeye.com
+ae-stage-hdp2-18.vm.stage.i.kixeye.com
+ae-stage-hdp2-19.vm.stage.i.kixeye.com
+ae-stage-hdp2-20.vm.stage.i.kixeye.com
+ae-stage-hdp2-21.vm.stage.i.kixeye.com
+ae-stage-hdp2-22.vm.stage.i.kixeye.com
+ae-stage-hdp2-23.vm.stage.i.kixeye.com
+ae-stage-hdp2-24.vm.stage.i.kixeye.com
+
